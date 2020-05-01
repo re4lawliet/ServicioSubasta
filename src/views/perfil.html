@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <%- include('./partials/head.html') %>
+</head>
+<body>
+    <%- include('./partials/navigation.html', {data: nombre}) %>
+    <br><br><br>
+<div class="container">
+
+
+    <div class="page-header text-center">
+        <h1><font color="white">>Mi Perfil</font></h1>
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+        <% } %>
+    </div>
+
+    <div class="row">
+
+        <!-- FACEBOOK INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h1>Pago de Membresia</h1>
+                <!-- check if the user has this token (is the user authenticated with this social account) -->
+                <form id="pago_frm" action="/Pago" method="POST"></form>
+                    <% if (user.pago.id) { %>
+                        <h2><p>
+                            <div class="form-group row">
+                                &emsp;<strong>id pago </strong>: &emsp;<input class="form-control" name="idUltimo" style="width: 300px; font-size: large;" type="text" value="<%= user.pago.id %>" readonly>
+                            </div>
+                            <div class="form-group row">
+                                &emsp;<strong>monto pago</strong>: &emsp;<input class="form-control" name="montoUltimo" style="width: 300px; font-size: large;" type="text" value="<%= user.pago.monto %>" readonly>
+                            </div>
+                            <div class="form-group row">
+                                &emsp;<strong>fecha pago</strong>: &emsp;<input class="form-control" name="fechaUltima" style="width: 300px; font-size: large;" type="text" value="<%= user.pago.fecha %>" readonly>
+                            </div>
+                        </p></h2>
+                    <% } %>
+                    <h2><p>
+                        <div class="form-group row">
+                            &emsp;<strong>Confirmar Codigo</strong>: &emsp;<input form="pago_frm" class="form-control" name="codigo" style="width: 300px; font-size: large;" type="text" value="" >
+                        </div>
+                        <div class="form-group row">
+                            &emsp;<strong>No. Tarjeta</strong>: &emsp;<input form="pago_frm" class="form-control" name="noTarjeta" style="width: 300px; font-size: large;" type="text" value="" >
+                        </div>
+                        <div class="form-group row">
+                            &emsp;<strong>Monto a Pagar</strong>: &emsp;<input form="pago_frm" class="form-control" name="montoNuevo" style="width: 300px; font-size: large;" type="text" value="" >
+                        </div>
+                    
+                        <button form="pago_frm" type="submit" class="btn btn-primary" style="font-size: large;">Hacer Pago</button>
+                    </p></h2>
+                </form>
+            </div>
+        </div>
+
+
+
+        <!-- LOCAL INFORMATION -->
+        
+        <div class="col-sm-6">
+            <div class="well">
+                <h1><span class="fa fa-user"></span> Modificar Mi Perfil</h1>
+                <form action="/Afiliadoput" method="POST">
+                    <% if (user.local.codigo) { %>
+                        <h2><p>
+                            <div class="form-group row">
+                                &emsp;<strong>codigo</strong>: &emsp;<input class="form-control" name="codigo" style="width: 300px; font-size: large;" type="text" value="<%= user.local.codigo %>" readonly>
+                            </div>
+                            <div class="form-group row">
+                                &emsp;<strong>nombre</strong>: &emsp; <input class="form-control" name="nombre" style="width: 300px; font-size: large;" type="text" value="<%= user.local.nombre %>" > <br>
+                            </div>
+                            <div class="form-group row">
+                                &emsp;<strong>vigente</strong>: &emsp;<input class="form-control" name="vigente" style="width: 300px; font-size: large;" type="text" value="<%= user.local.vigente %>" readonly><br>
+                            </div><div class="form-group row">
+                                &emsp;<strong>password</strong>: &emsp;<input class="form-control" name="password" style="width: 300px; font-size: large;" type="password" value="">
+                            </div>
+                        </p></h2>
+                        <button type="submit" class="btn btn-warning" style="font-size: large;">Modificar</button>
+                    <% }%>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
