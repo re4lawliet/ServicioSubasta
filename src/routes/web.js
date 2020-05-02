@@ -34,21 +34,24 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const fetchQuery = require('../request-manager');
+
+/*
 const URL_OFICINA = 'http://104.154.165.81'                 
 const URL_ASEGURADORA = 'http://104.154.165.81'         
 const URL_TOKEN = 'http://104.154.165.81'
+*/
 
-/* Grupo de Pichardo
+ //Grupo de Pichardo
 const URL_OFICINA = 'http://146.148.68.236'                 
 const URL_ASEGURADORA = 'http://146.148.68.236'         
-const URL_TOKEN = 'http://104.154.165.81'
-*/
+const URL_TOKEN = 'https://jwt-qnocpoeo4q-uc.a.run.app'
+
 const app = express();
 const alert = require('alert-node')
 
 const credenciales = {
-    client_id: 'fish', 
-    client_secret: '201314646',
+    client_id : 'SUBASTA',
+    client_secret : '5UB45T4',
     grant_type: 'client_credentials',
     audience: 12
 }
@@ -61,6 +64,19 @@ const credenciales = {
 }
 TOKEN: http://3.94.79.29:8000
 ESB: http://54.173.141.98:8001
+
+
+Aseguradora:
+client_id : INVENTARIO
+client_secret : 1NV3NT4R10
+Oficina
+client_id : OFICINA
+client_secret : 0F1C1N4
+Subasta
+client_id : SUBASTA
+client_secret : 5UB45T4
+
+
 */
 
 //------------------------------------------ INICIAL
@@ -70,6 +86,8 @@ router.get('/', async (req,res) => {
      .catch(function(err){
          console.log(err.status, err.statusText)
      });
+
+     console.log(token);
 
      //Obteniendo Fotos
      var fotos = await fetchQuery(URL_ASEGURADORA+'/Foto?jwt='+token.token,'GET').then()
