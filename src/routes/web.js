@@ -35,23 +35,21 @@ const request = require('request');
 const router = express.Router();
 const fetchQuery = require('../request-manager');
 
-/*
 const URL_OFICINA = 'http://104.154.165.81'                 
 const URL_ASEGURADORA = 'http://104.154.165.81'         
 const URL_TOKEN = 'http://104.154.165.81'
-*/
 
- //Grupo de Pichardo
+/* Grupo de Pichardo
 const URL_OFICINA = 'http://146.148.68.236'                 
 const URL_ASEGURADORA = 'http://146.148.68.236'         
-const URL_TOKEN = 'https://jwt-qnocpoeo4q-uc.a.run.app'
-
+const URL_TOKEN = 'http://104.154.165.81'
+*/
 const app = express();
 const alert = require('alert-node')
 
 const credenciales = {
-    client_id : 'SUBASTA',
-    client_secret : '5UB45T4',
+    client_id: 'fish', 
+    client_secret: '201314646',
     grant_type: 'client_credentials',
     audience: 12
 }
@@ -64,19 +62,6 @@ const credenciales = {
 }
 TOKEN: http://3.94.79.29:8000
 ESB: http://54.173.141.98:8001
-
-
-Aseguradora:
-client_id : INVENTARIO
-client_secret : 1NV3NT4R10
-Oficina
-client_id : OFICINA
-client_secret : 0F1C1N4
-Subasta
-client_id : SUBASTA
-client_secret : 5UB45T4
-
-
 */
 
 //------------------------------------------ INICIAL
@@ -86,8 +71,6 @@ router.get('/', async (req,res) => {
      .catch(function(err){
          console.log(err.status, err.statusText)
      });
-
-     console.log(token);
 
      //Obteniendo Fotos
      var fotos = await fetchQuery(URL_ASEGURADORA+'/Foto?jwt='+token.token,'GET').then()
@@ -380,22 +363,21 @@ router.get('/Afiliado', async (req,res) => {
     req.session.sessVig=false;
     req.session.sessAuth={};
 
-    console.log('ENTRO1');
+
     //Obteniendo Token 
     var token = await fetchQuery(URL_TOKEN+'/oauth/token/','POST', credenciales).then()
     .catch(function(err){
         console.log(err.status, err.statusText)
     });
 
-    console.log(token);
+
     //Solicitando Usuario
-    console.log(URL_OFICINA+'--------'+req.query.codigo);
     var usuario = await fetchQuery(URL_OFICINA+'/Afiliado?jwt='+token.token+'&codigo='+req.query.codigo+'&password='+req.query.password, 'GET').then()
     .catch(function (err) {
         console.log(err.status, err.statusText)
         res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
     });
-    console.log('USUARIO ',usuario)
+    //console.log('USUARIO ',usuario)
 
     //Obteniendo Token 2 para Vehiculos
     var token2 = await fetchQuery(URL_TOKEN+'/oauth/token/','POST', credenciales).then()
@@ -442,8 +424,6 @@ router.get('/Afiliado', async (req,res) => {
 
     //Validacion de respuestas
     if(usuario!=null){
-        console.log('Entro2');
-        console.log(usuario);
         var idpago ='';
         var montopago='';
         var fechapago='';
