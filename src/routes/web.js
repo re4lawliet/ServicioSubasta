@@ -37,9 +37,12 @@ const fetchQuery = require('../request-manager');
 const URL_OFICINA = 'http://104.154.165.81'                 
 const URL_ASEGURADORA = 'http://104.154.165.81'         
 const URL_TOKEN = 'http://104.154.165.81'
-/*const URL_OFICINA = 'http://35.188.222.224'                 
-const URL_ASEGURADORA = 'http://34.214.230.10:4000'         
-const URL_TOKEN = 'http://3.94.79.29:8000'*/
+
+/* Grupo de Pichardo
+const URL_OFICINA = 'http://146.148.68.236'                 
+const URL_ASEGURADORA = 'http://146.148.68.236'         
+const URL_TOKEN = 'http://104.154.165.81'
+*/
 const app = express();
 const alert = require('alert-node')
 
@@ -49,7 +52,16 @@ const credenciales = {
     grant_type: 'client_credentials',
     audience: 12
 }
-
+/* Grupo de Alan
+const credenciales = {
+    client_id: 'giovannilopez', 
+    client_secret: 'miacceso123',
+    grant_type: 'client_credentials',
+    audience: 12
+}
+TOKEN: http://3.94.79.29:8000
+ESB: http://54.173.141.98:8001
+*/
 
 //------------------------------------------ INICIAL
 router.get('/', async (req,res) => {
