@@ -380,21 +380,22 @@ router.get('/Afiliado', async (req,res) => {
     req.session.sessVig=false;
     req.session.sessAuth={};
 
-
+    console.log('ENTRO1');
     //Obteniendo Token 
     var token = await fetchQuery(URL_TOKEN+'/oauth/token/','POST', credenciales).then()
     .catch(function(err){
         console.log(err.status, err.statusText)
     });
 
-
+    console.log(token);
     //Solicitando Usuario
+    console.log(URL_OFICINA+'--------'+req.query.codigo);
     var usuario = await fetchQuery(URL_OFICINA+'/Afiliado?jwt='+token.token+'&codigo='+req.query.codigo+'&password='+req.query.password, 'GET').then()
     .catch(function (err) {
         console.log(err.status, err.statusText)
         res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
     });
-    //console.log('USUARIO ',usuario)
+    console.log('USUARIO ',usuario)
 
     //Obteniendo Token 2 para Vehiculos
     var token2 = await fetchQuery(URL_TOKEN+'/oauth/token/','POST', credenciales).then()
@@ -441,6 +442,8 @@ router.get('/Afiliado', async (req,res) => {
 
     //Validacion de respuestas
     if(usuario!=null){
+        console.log('Entro2');
+        console.log(usuario);
         var idpago ='';
         var montopago='';
         var fechapago='';
